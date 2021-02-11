@@ -18,7 +18,7 @@ def startproject(project: str):
             readme.write("# "+ project+"\n---")
         
         f = os.path.join(root_dir, "app.py")
-        with open(f, "w+") as writefile, open("./deploy/template_files/app.txt", "r") as readfile:
+        with open(f, "w+") as writefile, open("./template_files/app.txt", "r") as readfile:
             for line in readfile:
                 writefile.write(line)
         
@@ -30,7 +30,7 @@ def startproject(project: str):
         
         for file in model_files:
             f = os.path.join(model_dir, file+'.py')
-            with open(f, "w+") as writefile, open("./deploy/template_files/"+file+".txt", "r") as readfile:
+            with open(f, "w+") as writefile, open("./template_files/"+file+".txt", "r") as readfile:
                 for line in readfile:
                     writefile.write(line)
     except:

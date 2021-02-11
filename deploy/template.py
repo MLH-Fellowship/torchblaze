@@ -1,5 +1,4 @@
 import os
-import shutil
 
 def startproject(project: str):
     try: 

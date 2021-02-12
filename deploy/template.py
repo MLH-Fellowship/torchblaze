@@ -1,4 +1,5 @@
 import os
+import pkg_resources
 
 def startproject(project: str):
     try: 
@@ -18,9 +19,8 @@ def startproject(project: str):
             readme.write("# "+ project+"\n---")
         
         f = os.path.join(root_dir, "app.py")
-        with open(f, "w+") as writefile, open("./deploy/template_files/app.txt", "r") as readfile:
-            for line in readfile:
-                writefile.write(line)
+        with open(f, "w+") as writefile:
+            writefile.write(pkg_resources.resource_string('deploy', 'template_files/app.txt').decode('utf-8'))
         
         # creating the model directory and sub-dir/files
         model_dir = os.path.join(root_dir, 'model')
@@ -30,9 +30,8 @@ def startproject(project: str):
         
         for file in model_files:
             f = os.path.join(model_dir, file+'.py')
-            with open(f, "w+") as writefile, open("./deploy/template_files/"+file+".txt", "r") as readfile:
-                for line in readfile:
-                    writefile.write(line)
+            with open(f, "w+") as writefile:
+                    writefile.write(pkg_resources.resource_string('deploy', f'template_files/{file}.txt').decode('utf-8'))
     except:
         print("A directory with project name already exists. Kindly choose a different name.")
     

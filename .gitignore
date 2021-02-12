@@ -1,3 +1,5 @@
 .env
 setup.py
 .vscode
+deploy/__pycache__
+e

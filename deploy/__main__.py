@@ -1,5 +1,6 @@
 import fire
 from template import startproject
+from dockerise import createdockerfile
 
 class Deploy(object):
 
@@ -9,8 +10,9 @@ class Deploy(object):
   def generate_template(self, project_name):
     startproject(project_name)
 
-  def generate_docker(self, x, y):
-    pass
+  def generate_docker(self,project_name):
+  	createdockerfile(project_name)
+    
 
 if __name__ == '__main__':
   fire.Fire(Deploy)

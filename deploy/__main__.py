@@ -19,9 +19,9 @@ class Deploy(object):
     def generate_docker(self, project_name):
         if not dockerfilechecker(project_name):
         	createdockerfile(project_name)
-        	print('Default Docker File Created')
+        	print('Default Dockerfile created.')
        	else:
-            print('Dockerfile already present')
+            print('Dockerfile already present.')
 
 
 

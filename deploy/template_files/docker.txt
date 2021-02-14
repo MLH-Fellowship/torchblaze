@@ -1,0 +1,11 @@
+FROM continuumio/anaconda3
+
+COPY . /usr/app/
+
+WORKDIR /usr/app/
+
+EXPOSE 8080
+
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+CMD ["python","app.py"]

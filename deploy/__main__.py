@@ -16,12 +16,13 @@ class Deploy(object):
     def generate_template(self, project_name):
         startproject(project_name)
 
-    def generate_docker(self, project_name):
-        if not dockerfilechecker(project_name):
+    def generate_docker(self, project_name, image_name):
+        if not dockerfilechecker():
         	createdockerfile(project_name)
         	print('Default Dockerfile created.')
        	else:
             print('Dockerfile already present.')
+        # buildimage(image_name)
 
 
 

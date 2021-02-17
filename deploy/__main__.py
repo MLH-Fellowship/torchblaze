@@ -3,6 +3,7 @@
 import fire
 from .template import startproject
 from .dockerise import createdockerfile, dockerfilechecker, buildimage
+from .apitests import get_routes
 import os
 
 def main():
@@ -24,6 +25,9 @@ class Deploy(object):
             print('Dockerfile already present.')
         buildimage(image_name)
 
+    def api_test(self):
+        routes=get_routes()
+        print(routes)
 
 
 

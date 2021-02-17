@@ -20,3 +20,8 @@ def dockerfilechecker():
         return True
     return False
 
+
+def buildimage(image_name):
+    print('Docker Image ' + image_name + ' is getting created')
+    os.system('docker build -t ' + image_name + ' .')
+    print('Docker Image Build Done')

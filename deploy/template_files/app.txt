@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, request
 from flask_restful import Api, Resource
 import numpy as np
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # or any {'0', '1', '2'}
 import tensorflow as tf
 import traceback
 import json

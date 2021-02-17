@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import fire
 from .template import startproject
-from .dockerise import createdockerfile, dockerfilechecker
+from .dockerise import createdockerfile, dockerfilechecker, buildimage
 import os
 
 def main():
@@ -16,12 +16,13 @@ class Deploy(object):
     def generate_template(self, project_name):
         startproject(project_name)
 
-    def generate_docker(self, project_name):
-        if not dockerfilechecker(project_name):
+    def generate_docker(self, project_name, image_name):
+        if not dockerfilechecker():
         	createdockerfile(project_name)
         	print('Default Dockerfile created.')
        	else:
             print('Dockerfile already present.')
+        buildimage(image_name)
 
 
 

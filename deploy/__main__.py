@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import fire
 from .template import startproject
-from .dockerise import createdockerfile, dockerfilechecker
+from .dockerise import createdockerfile, dockerfilechecker, buildimage
 import os
 
 def main():
@@ -22,7 +22,7 @@ class Deploy(object):
         	print('Default Dockerfile created.')
        	else:
             print('Dockerfile already present.')
-        # buildimage(image_name)
+        buildimage(image_name)
 
 
 

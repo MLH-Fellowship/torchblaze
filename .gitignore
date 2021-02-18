@@ -2,3 +2,6 @@
 .vscode
 deploy/__pycache__
 e
+deploy/template_files/data
+deploy/template_files/torch_template/__pycache__
+deploy/template_files/torch_template/*.pt

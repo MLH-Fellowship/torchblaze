@@ -1,5 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 import importlib.util
 import os
 from flask import url_for

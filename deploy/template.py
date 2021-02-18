@@ -20,7 +20,7 @@ def startproject(project: str):
         
         f = os.path.join(root_dir, "app.py")
         with open(f, "w+") as writefile:
-            writefile.write(pkg_resources.resource_string('deploy', 'template_files/app.py').decode('utf-8'))
+            writefile.writelines(pkg_resources.resource_string('deploy', 'template_files/app.py').decode('utf-8').split('\n'))
         
         # creating the model directory and sub-dir/files
         model_dir = os.path.join(root_dir, 'model')
@@ -31,7 +31,7 @@ def startproject(project: str):
         for file in model_files:
             f = os.path.join(model_dir, file+'.py')
             with open(f, "w+") as writefile:
-                    writefile.write(pkg_resources.resource_string('deploy', f'template_files/{file}.py').decode('utf-8'))
+                    writefile.writelines(pkg_resources.resource_string('deploy', f'template_files/{file}.py').decode('utf-8').split('\n'))
     # except:
     #     print("A directory with project name already exists. Kindly choose a different name.")
     

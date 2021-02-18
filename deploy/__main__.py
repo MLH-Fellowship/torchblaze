@@ -35,14 +35,28 @@ class Deploy(object):
         Returns:
             None
         """
+
+        # Checking for Docker file exits or not 
         if not dockerfilechecker():
+            # Creating a Docker file 
         	createdockerfile()
         	print('Default Dockerfile created.')
        	else:
             print('A Dockerfile already exists for this project.')
+        # Building a Docker Image 
         buildimage(image_name)
 
     def api_test(self):
+        """A automated API testing used to check whether the API route is working correctly or not
+
+        Arguments:
+            None
+        
+        Returns:
+            None
+        """
+        # Firstly we need to run the file and then start testing
+        # Getting the list of routes from the app.py 
         routes=get_routes()
         print(routes)
 

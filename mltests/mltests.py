@@ -4,19 +4,28 @@ import torch.nn.functional as F
 
 
 class ParamsTooLargeException(Exception):
-    pass 
+    pass
+
 
 class ParamsTooSmallException(Exception):
     pass
 
+
 class GradientAboveThresholdException(Exception):
     pass
+
 
 class NaNParamsException(Exception):
     pass
 
-class InfParamsExceptions(Exception):
+
+class InfParamsException(Exception):
     pass
+
+
+class GradientsUninitializedException(Exception):
+    pass
+
 
 def get_params(model):
     """Retrieves list of all the named parameters in a model.
@@ -43,7 +52,7 @@ def check_nan(name, params):
     try:
         assert not params.isnan().any()
     except AssertionError:
-        print(f"\nNaN values found in the layer: {name}")
+        raise NaNParamsException(f"\nNaN values found in the layer: {name}")
 
 
 def check_infinite(name, params):
@@ -59,7 +68,8 @@ def check_infinite(name, params):
     try:
         assert not params.isinf().any()
     except AssertionError:
-        print(f"\nInfinite values found in the layer: {name}")
+        raise InfParamsException(
+            f"\nInfinite values found in the layer: {name}")
 
 
 def check_smaller(name, params, upper_limit=0):
@@ -76,8 +86,8 @@ def check_smaller(name, params, upper_limit=0):
     try:
         assert params.abs().less(upper_limit).any()
     except AssertionError:
-        print(f"\nCertain parameters in layer '{name}' found to be greater than the threshold value = {upper_limit}.")
-
+        raise ParamsTooLargeException(
+            f"\nCertain parameters in layer '{name}' found to be greater than the threshold value = {upper_limit}.")
 
 
 def check_greater(name, params, lower_limit=0):
@@ -94,7 +104,8 @@ def check_greater(name, params, lower_limit=0):
     try:
         assert params.abs().greater(lower_limit).any()
     except AssertionError:
-        print(f"\nCertain parameters in layer '{name}' found to be smaller than the threshold value = {lower_limit}.")
+        raise ParamsTooSmallException(
+            f"\nCertain parameters in layer '{name}' found to be smaller than the threshold value = {lower_limit}.")
 
 
 def check_gradient_smaller(name, params, grad_limit=1e3):
@@ -114,22 +125,19 @@ def check_gradient_smaller(name, params, grad_limit=1e3):
     try:
         assert not (grads == None)
     except AssertionError:
-        print("\nModel gradients not initialized. Kindly run loss.backwards() to initialize gradients first.")
-        return 
+        raise GradientsUninitializedException("\nModel gradients not initialized. Kindly run loss.backwards() to initialize gradients first.")
 
     try:
         assert not grads.abs().greater(grad_limit).any()
     except AssertionError:
-        print(f"\nGradients (absolute) for certain parameters in layer '{name}' found to be greater than the threshold grad_limit value = {grad_limit}.")
-        return 
+        raise GradientAboveThresholdException(f"\nGradients (absolute) for certain parameters in layer '{name}' found to be greater than the threshold grad_limit value = {grad_limit}.")
 
 
-
-def model_test(model, batch_label, batch_target, 
-                optim=torch.optim.Adam, loss=torch.nn.CrossEntropyLoss, 
-                check_gradient_smaller=True, check_greater=True, 
-                check_smaller=True, check_infinite=True, check_nan=True,
-                upper_limit=1e2, lower_limit=1e-2, grad_limit=1e4):
+def model_test(model, batch_label, batch_target,
+               optim=torch.optim.Adam, loss=torch.nn.CrossEntropyLoss,
+               check_gradient_smaller=True, check_greater=True,
+               check_smaller=True, check_infinite=True, check_nan=True,
+               upper_limit=1e2, lower_limit=1e-2, grad_limit=1e4):
     """Executes a suite of tests on the ML model.
     Set <test_name> = False if you want to exclude a certain test from the test suite.
 
@@ -137,31 +145,30 @@ def model_test(model, batch_label, batch_target,
         model::nn.Module- The model that you want to test.
 
         batch_x::torch.Tensor- A single batch of data features to perform model checks
-        
+
         batch_y::torch.Tensor- A single batch of data labels to perform model checks
 
         optim::torch.optim- default=torch.optim.Adam, Optimizer algorithm to be used during model training 
-        
+
         loss- default=torch.nn.CrossEntropyLoss, Loss function to be used for model evaluation during training
 
         check_gradient_smaller::bools- default=True, Asserts if gradients exceed a certain threshold  
-        
+
         check_greater::bools- default=True, Asserts if all parameters > threshold limit
-        
+
         check_smaller::bools- default=True, Asserts if all parameters < threshold limit
-        
+
         check_infinite::bools- default=True, Asserts that no parameters == infinite
-        
+
         check_nan::bools- default=True, Asserts that no parameters == NaN
-        
+
         upper_limit::float- default=1e2, Absolute value of all parameters should be smaller than this threshold value
-        
+
         lower_limit::float- default=1e-2, Absolute value of all parameters should be greater than this threshold value
-        
+
         grad_limit::float- default=1e4, Absolute value of all gradients should be smaller than this threshold value
     """
     pass
-
 
 
 if __name__ == "__main__":
@@ -190,7 +197,6 @@ if __name__ == "__main__":
             output = F.log_softmax(x, dim=1)
             return output
 
-
     def train(args, model, device, train_loader, optimizer, epoch):
         model.train()
         for batch_idx, (data, target) in enumerate(train_loader):
@@ -207,7 +213,6 @@ if __name__ == "__main__":
                 if args.dry_run:
                     break
 
-
     def test(model, device, test_loader):
         model.eval()
         test_loss = 0
@@ -216,8 +221,10 @@ if __name__ == "__main__":
             for data, target in test_loader:
                 data, target = data.to(device), target.to(device)
                 output = model(data)
-                test_loss += F.nll_loss(output, target, reduction='sum').item()  # sum up batch loss
-                pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
+                # sum up batch loss
+                test_loss += F.nll_loss(output, target, reduction='sum').item()
+                # get the index of the max log-probability
+                pred = output.argmax(dim=1, keepdim=True)
                 correct += pred.eq(target.view_as(pred)).sum().item()
 
         test_loss /= len(test_loader.dataset)

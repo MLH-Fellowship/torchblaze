@@ -3,6 +3,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
+
+
 def get_params(model):
     """Retrieves list of all the named parameters in a model.
 
@@ -28,7 +30,7 @@ def check_nan(name, params):
     try:
         assert not params.isnan().any()
     except AssertionError:
-        print(f"NaN values found in the layer: {name}")
+        print(f"\nNaN values found in the layer: {name}")
 
 
 def check_infinite(name, params):
@@ -44,46 +46,46 @@ def check_infinite(name, params):
     try:
         assert not params.isinf().any()
     except AssertionError:
-        print(f"Infinite values found in the layer: {name}")
+        print(f"\nInfinite values found in the layer: {name}")
 
 
-def check_smaller(name, params, explode_limit=0):
-    """Tests if the value for any parameter exceeds a certain threshold.
+def check_smaller(name, params, upper_limit=0):
+    """Tests if the absolute value of any parameter exceeds a certain threshold.
 
     Arguments:
         name::str- Name of the parameter
         params::torch.Tensor- Trainable named parameters associated with a layer
-        explode_limit::float- Threshold value which every parameter should be smaller than
+        upper_limit::float- The threshold value every parameter should be smaller than in terms of its absolute value.
 
     Returns:
         None- Throws an exception in case any parameter is a exceeds threshold value.
     """
     try:
-        assert params.less(explode_limit).any()
+        assert params.abs().less(upper_limit).any()
     except AssertionError:
-        print(f"Certain parameters in layer '{name}' found to be greater than the threshold value = {explode_limit}.")
+        print(f"\nCertain parameters in layer '{name}' found to be greater than the threshold value = {upper_limit}.")
 
 
 
-def check_greater(name, params, decay_limit=0):
-    """Tests if the value for any parameter falls below a certain threshold.
+def check_greater(name, params, lower_limit=0):
+    """Tests if the absolute value of any parameter falls below a certain threshold.
 
     Arguments:
         name::str- Name of the parameter
         params::torch.Tensor- Trainable named parameters associated with a layer
-        decay_limit::float- Threshold value which every parameter should be greater than
+        lower_limit::float- The threshold value every parameter should be greater than in terms of its absolute value.
 
     Returns:
         None- Throws an exception in case any parameter is a NaN value.
     """
     try:
-        assert params.greater(decay_limit).any()
+        assert params.abs().greater(lower_limit).any()
     except AssertionError:
-        print(f"Certain parameters in layer '{name}' found to be smaller than the threshold value = {decay_limit}.")
+        print(f"\nCertain parameters in layer '{name}' found to be smaller than the threshold value = {lower_limit}.")
 
 
 def check_gradient_smaller(name, params, grad_limit=1e3):
-    """Tests if the gradients for any parameter exceed a certain threshold. Can be used to check for gradient explosion.
+    """Tests if the absolute gradient value for any parameter exceed a certain threshold. Can be used to check for gradient explosion.
 
     Arguments:
         name::str- Name of the parameter
@@ -99,14 +101,20 @@ def check_gradient_smaller(name, params, grad_limit=1e3):
     try:
         assert not (grads == None)
     except AssertionError:
-        print("Model gradients not initialized. Kindly run loss.backwards() to initialize gradients first.")
+        print("\nModel gradients not initialized. Kindly run loss.backwards() to initialize gradients first.")
         return 
 
     try:
-        assert not grads.greater(grad_limit).any()
+        assert not grads.abs().greater(grad_limit).any()
     except AssertionError:
-        print(f"Gradients for certain parameters in layer '{name}' found to be greater than the threshold grad_limit value = {grad_limit}.")
+        print(f"\nGradients (absolute) for certain parameters in layer '{name}' found to be greater than the threshold grad_limit value = {grad_limit}.")
         return 
+
+
+
+
+
+
 
 if __name__ == "__main__":
     class Net(nn.Module):
@@ -175,6 +183,6 @@ if __name__ == "__main__":
         print(name)
         check_nan(name, params)
         check_infinite(name, params)
-        check_greater(name, params, decay_limit=0.001)
-        check_smaller(name, params, explode_limit=0.1)
+        check_greater(name, params, lower_limit=0.001)
+        check_smaller(name, params, upper_limit=0.1)
         check_gradient_smaller(name, params, grad_limit=1e3)

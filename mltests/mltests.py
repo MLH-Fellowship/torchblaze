@@ -82,6 +82,32 @@ def check_greater(name, params, decay_limit=0):
         print(f"Certain parameters in layer '{name}' found to be smaller than the threshold value = {decay_limit}.")
 
 
+def check_gradient_smaller(name, params, grad_limit=1e3):
+    """Tests if the gradients for any parameter exceed a certain threshold. Can be used to check for gradient explosion.
+
+    Arguments:
+        name::str- Name of the parameter
+        params::torch.Tensor- Trainable named parameters associated with a layer
+        grad_limit::float- A threshold value, such that, |params.grad| < grad_limit
+
+    Returns:
+        None- Throws an exception in case the gradient for any parameter exceeds the threshold value (grad_limit)
+        OR
+        None- Throws an exception in case the method is used without running the loss.backward() method for backprop.
+    """
+    grads = params.grad
+    try:
+        assert not (grads == None)
+    except AssertionError:
+        print("Model gradients not initialized. Kindly run loss.backwards() to initialize gradients first.")
+        return 
+
+    try:
+        assert not grads.greater(grad_limit).any()
+    except AssertionError:
+        print(f"Gradients for certain parameters in layer '{name}' found to be greater than the threshold grad_limit value = {grad_limit}.")
+        return 
+
 if __name__ == "__main__":
     class Net(nn.Module):
         def __init__(self):
@@ -151,3 +177,4 @@ if __name__ == "__main__":
         check_infinite(name, params)
         check_greater(name, params, decay_limit=0.001)
         check_smaller(name, params, explode_limit=0.1)
+        check_gradient_smaller(name, params, grad_limit=1e3)

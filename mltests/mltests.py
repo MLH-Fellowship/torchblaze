@@ -3,7 +3,20 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
+class ParamsTooLargeException(Exception):
+    pass 
 
+class ParamsTooSmallException(Exception):
+    pass
+
+class GradientAboveThresholdException(Exception):
+    pass
+
+class NaNParamsException(Exception):
+    pass
+
+class InfParamsExceptions(Exception):
+    pass
 
 def get_params(model):
     """Retrieves list of all the named parameters in a model.
@@ -112,7 +125,42 @@ def check_gradient_smaller(name, params, grad_limit=1e3):
 
 
 
+def model_test(model, batch_label, batch_target, 
+                optim=torch.optim.Adam, loss=torch.nn.CrossEntropyLoss, 
+                check_gradient_smaller=True, check_greater=True, 
+                check_smaller=True, check_infinite=True, check_nan=True,
+                upper_limit=1e2, lower_limit=1e-2, grad_limit=1e4):
+    """Executes a suite of tests on the ML model.
+    Set <test_name> = False if you want to exclude a certain test from the test suite.
 
+    Arguments:
+        model::nn.Module- The model that you want to test.
+
+        batch_x::torch.Tensor- A single batch of data features to perform model checks
+        
+        batch_y::torch.Tensor- A single batch of data labels to perform model checks
+
+        optim::torch.optim- default=torch.optim.Adam, Optimizer algorithm to be used during model training 
+        
+        loss- default=torch.nn.CrossEntropyLoss, Loss function to be used for model evaluation during training
+
+        check_gradient_smaller::bools- default=True, Asserts if gradients exceed a certain threshold  
+        
+        check_greater::bools- default=True, Asserts if all parameters > threshold limit
+        
+        check_smaller::bools- default=True, Asserts if all parameters < threshold limit
+        
+        check_infinite::bools- default=True, Asserts that no parameters == infinite
+        
+        check_nan::bools- default=True, Asserts that no parameters == NaN
+        
+        upper_limit::float- default=1e2, Absolute value of all parameters should be smaller than this threshold value
+        
+        lower_limit::float- default=1e-2, Absolute value of all parameters should be greater than this threshold value
+        
+        grad_limit::float- default=1e4, Absolute value of all gradients should be smaller than this threshold value
+    """
+    pass
 
 
 

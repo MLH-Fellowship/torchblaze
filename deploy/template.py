@@ -2,7 +2,7 @@ import os
 import pkg_resources
 
 def startproject(project: str):
-    try: 
+    # try: 
         curr_dir = os.getcwd()
         root_dir = os.path.join(curr_dir, project)
         
@@ -20,7 +20,7 @@ def startproject(project: str):
         
         f = os.path.join(root_dir, "app.py")
         with open(f, "w+") as writefile:
-            writefile.write(pkg_resources.resource_string('deploy', 'template_files/app.txt').decode('utf-8'))
+            writefile.write(pkg_resources.resource_string('deploy', 'template_files/app.py').decode('utf-8'))
         
         # creating the model directory and sub-dir/files
         model_dir = os.path.join(root_dir, 'model')
@@ -31,9 +31,9 @@ def startproject(project: str):
         for file in model_files:
             f = os.path.join(model_dir, file+'.py')
             with open(f, "w+") as writefile:
-                    writefile.write(pkg_resources.resource_string('deploy', f'template_files/{file}.txt').decode('utf-8'))
-    except:
-        print("A directory with project name already exists. Kindly choose a different name.")
+                    writefile.write(pkg_resources.resource_string('deploy', f'template_files/{file}.py').decode('utf-8'))
+    # except:
+    #     print("A directory with project name already exists. Kindly choose a different name.")
     
 
 if __name__ == "__main__":

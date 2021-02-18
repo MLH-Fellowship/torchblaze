@@ -7,7 +7,6 @@ import sys
 curr_dir = os.getcwd()
 sys.path.append(curr_dir)
 
-from app import app
 
 
 def has_no_empty_params(rule):
@@ -37,7 +36,7 @@ def get_routes():
     
     # Loading the app.py file as a module using library importlib
 
-
+    from app import app
     routes = []
     for rule in app.url_map.iter_rules():
         # Checking whether the rule has any empty params

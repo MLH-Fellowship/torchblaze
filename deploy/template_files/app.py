@@ -52,5 +52,22 @@ class MakePrediction(Resource):
 
 api.add_resource(MakePrediction, '/predict')
 
+
+class dummy(Resource):
+    @staticmethod
+    def post():
+        if model:
+            try:
+                request_input = request.get_json()
+
+                return jsonify(request_input)
+
+            except:
+                return jsonify({'trace': traceback.format_exc()})
+        else:
+            return jsonify({'trace': 'No model found'})
+
+api.add_resource(dummy, '/dummy_post')
+
 if __name__ == '__main__':
     app.run(debug=True)

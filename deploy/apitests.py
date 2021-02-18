@@ -1,6 +1,12 @@
-import importlib.util
+import importlib
 import os
 from flask import url_for
+import sys
+# Setting the System Path to current directory
+
+curr_dir = os.getcwd()
+sys.path.append(curr_dir)
+
 
 
 def has_no_empty_params(rule):
@@ -30,11 +36,9 @@ def get_routes():
     
     # Loading the app.py file as a module using library importlib
 
-    spec = importlib.util.spec_from_file_location('app', 'app.py')
-    app = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(app)
+    from app import app
     routes = []
-    for rule in app.app.url_map.iter_rules():
+    for rule in app.url_map.iter_rules():
         # Checking whether the rule has any empty params
 
         if has_no_empty_params(rule):
@@ -43,6 +47,9 @@ def get_routes():
             routes.append((rule.methods,str(rule),rule.endpoint))
 
     return routes
+
+
+
 
 
 if __name__ == '__main__':

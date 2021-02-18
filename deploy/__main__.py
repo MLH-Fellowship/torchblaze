@@ -55,6 +55,7 @@ class Deploy(object):
         Returns:
             None
         """
+        # Firstly we need to run the file and then start testing
         # Getting the list of routes from the app.py 
         routes=get_routes()
         print(routes)

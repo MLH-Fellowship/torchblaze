@@ -55,7 +55,14 @@ def buildimage(image_name:str):
 
 
 def runimage(image_name:str):
+    """Runs the Docker Image Container
+
+    Arguments:
+        image_name::str- Name for the Docker image
+    
+    Returns:
+        None
+    """
+    print("Docker Image Running")
     os.system("docker run -p 8080:8080 "+image_name)
-    signal.signal(signal.SIGINT, signal_handler)
-    print('Press Ctrl+C')
-    signal.pause()
+    

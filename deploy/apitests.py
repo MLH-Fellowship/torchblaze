@@ -3,6 +3,7 @@ import os
 from flask import url_for
 import sys
 import requests
+import json
 # Setting the System Path to current directory
 
 curr_dir = os.getcwd()
@@ -50,7 +51,13 @@ def get_routes():
 
 
 def tests(routes,baseurl):
+    curr_dir=os.getcwd()
+    f = os.path.join(curr_dir, "tests.json")
+    with open(f, "r") as jsonfile:
+        data=json.load(jsonfile)
+        print(data)
     for i in routes:
+        
         if 'GET' in i[0]:
             #print("get")
             #print(baseurl)

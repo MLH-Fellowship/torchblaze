@@ -2,6 +2,8 @@ import importlib
 import os
 from flask import url_for
 import sys
+import requests
+import json
 # Setting the System Path to current directory
 
 curr_dir = os.getcwd()
@@ -45,8 +47,49 @@ def get_routes():
             # The list contains the tuple which comprises of route method,route path,route end point
 
             routes.append((rule.methods,str(rule),rule.endpoint))
-
     return routes
+
+
+def tests(routes,baseurl):
+    """It sends the request to the routes by taking test cases from tests.json"
+
+    Arguments:
+        input takes list of routes and the baseurl of the api
+
+    Returns:
+        None
+    """
+    # Loading tests.json file
+    curr_dir=os.getcwd()
+    f = os.path.join(curr_dir, "tests.json")
+    with open(f, "r") as jsonfile:
+        data=json.load(jsonfile)
+        #print(data)
+    for i in routes:
+        
+        # GET Method Testing
+        if 'GET' in i[0]:
+            #print("get")
+            #print(baseurl)
+            response=requests.get(baseurl+str(i[1]))
+            status_code_get=response.status_code
+            if(status_code_get==200):
+                print("route",str(i[1]),"get successful")
+            else:
+                print(i[1],"failed with return status_code",status_code_get)
+        # POST Method Implemntation
+        elif 'POST' in i[0]:
+            endpoint=str(i[2])
+            if endpoint=='makeprediction':
+                continue
+            end_test_data=data[endpoint]
+            for test in end_test_data:
+                response=requests.post(baseurl+str(i[1]),json=test)
+            status_code_post=response.status_code
+            if(status_code_post==200):
+                print("route",str(i[1]),"post successful")
+            else:
+                print(i[1],"failed with return status_code",status_code_post)
 
 
 

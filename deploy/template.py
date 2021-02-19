@@ -22,6 +22,10 @@ def startproject(project: str):
         with open(f, "w+") as writefile:
             writefile.writelines(pkg_resources.resource_string('deploy', 'template_files/app.py').decode('utf-8').split('\n'))
         
+        f = os.path.join(root_dir, "tests.json")
+        with open(f, "w+") as writefile:
+            writefile.writelines(pkg_resources.resource_string('deploy', 'template_files/tests.txt').decode('utf-8').split('\n'))
+        
         # creating the model directory and sub-dir/files
         model_dir = os.path.join(root_dir, 'model')
         os.mkdir(model_dir)

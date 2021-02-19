@@ -55,20 +55,34 @@ def tests(routes,baseurl):
     f = os.path.join(curr_dir, "tests.json")
     with open(f, "r") as jsonfile:
         data=json.load(jsonfile)
-        print(data)
+        #print(data)
     for i in routes:
         
         if 'GET' in i[0]:
             #print("get")
             #print(baseurl)
             response=requests.get(baseurl+str(i[1]))
-            status_code=response.status_code
-            if(status_code==200):
-                print("get successful")
+            status_code_get=response.status_code
+            if(status_code_get==200):
+                print("route",str(i[1]),"get successful")
             else:
-                print(i[1],"failed with return status_code",status_code)
+                print(i[1],"failed with return status_code",status_code_get)
         elif 'POST' in i[0]:
-            print("post")
+            endpoint=str(i[2])
+            if endpoint=='makeprediction':
+                continue
+            end_test_data=data[endpoint]
+            for test in end_test_data:
+                response=requests.post(baseurl+str(i[1]),json=test)
+            status_code_post=response.status_code
+            if(status_code_post==200):
+                print("route",str(i[1]),"post successful")
+            else:
+                print(i[1],"failed with return status_code",status_code_post)
+
+
+
+
 
 if __name__ == '__main__':
     get_routes()

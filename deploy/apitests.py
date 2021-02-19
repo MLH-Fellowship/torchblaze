@@ -51,6 +51,15 @@ def get_routes():
 
 
 def tests(routes,baseurl):
+    """It sends the request to the routes by taking test cases from tests.json"
+
+    Arguments:
+        input takes list of routes and the baseurl of the api
+
+    Returns:
+        None
+    """
+    # Loading tests.json file
     curr_dir=os.getcwd()
     f = os.path.join(curr_dir, "tests.json")
     with open(f, "r") as jsonfile:
@@ -58,6 +67,7 @@ def tests(routes,baseurl):
         #print(data)
     for i in routes:
         
+        # GET Method Testing
         if 'GET' in i[0]:
             #print("get")
             #print(baseurl)
@@ -67,6 +77,7 @@ def tests(routes,baseurl):
                 print("route",str(i[1]),"get successful")
             else:
                 print(i[1],"failed with return status_code",status_code_get)
+        # POST Method Implemntation
         elif 'POST' in i[0]:
             endpoint=str(i[2])
             if endpoint=='makeprediction':

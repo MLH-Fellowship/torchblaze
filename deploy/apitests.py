@@ -2,6 +2,7 @@ import importlib
 import os
 from flask import url_for
 import sys
+import requests
 # Setting the System Path to current directory
 
 curr_dir = os.getcwd()
@@ -45,12 +46,22 @@ def get_routes():
             # The list contains the tuple which comprises of route method,route path,route end point
 
             routes.append((rule.methods,str(rule),rule.endpoint))
-
     return routes
 
 
-
-
+def tests(routes,baseurl):
+    for i in routes:
+        if 'GET' in i[0]:
+            #print("get")
+            #print(baseurl)
+            response=requests.get(baseurl+str(i[1]))
+            status_code=response.status_code
+            if(status_code==200):
+                print("get successful")
+            else:
+                print(i[1],"failed with return status_code",status_code)
+        elif 'POST' in i[0]:
+            print("post")
 
 if __name__ == '__main__':
     get_routes()

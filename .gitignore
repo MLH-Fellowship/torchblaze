@@ -1,8 +1,8 @@
 e
 .env
 .vscode
-deploy/__pycache__
-mltests/__pycache__
+*.pyc
+*.pyo
 deploy/template_files/data
 deploy/template_files/torch_template/__pycache__
 deploy/template_files/torch_template/*.pt

@@ -2,7 +2,15 @@ import os
 import pkg_resources
 
 def startproject(project: str):
-    # try: 
+    """Generates a template project structure for an ML API project.
+
+    Arguments:
+        project::str- Project name
+    
+    Returns:
+        None
+    """
+    try: 
         curr_dir = os.getcwd()
         root_dir = os.path.join(curr_dir, project)
         
@@ -25,6 +33,10 @@ def startproject(project: str):
         f = os.path.join(root_dir, "tests.json")
         with open(f, "w+") as writefile:
             writefile.writelines(pkg_resources.resource_string('deploy', 'template_files/tests.txt').decode('utf-8').split('\n'))
+
+        f = os.path.join(root_dir, "Procfile")
+        with open(f, "w+") as writefile:
+            writefile.writelines(pkg_resources.resource_string('deploy', 'template_files/procfile.txt').decode('utf-8').split('\n'))
         
         # creating the model directory and sub-dir/files
         model_dir = os.path.join(root_dir, 'model')
@@ -36,8 +48,8 @@ def startproject(project: str):
             f = os.path.join(model_dir, file+'.py')
             with open(f, "w+") as writefile:
                     writefile.writelines(pkg_resources.resource_string('deploy', f'template_files/{file}.py').decode('utf-8').split('\n'))
-    # except:
-    #     print("A directory with project name already exists. Kindly choose a different name.")
+    except:
+        print(f"The directory '{project}' already exists. Kindly choose a different project name.")
     
 
 if __name__ == "__main__":

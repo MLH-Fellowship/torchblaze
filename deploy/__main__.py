@@ -1,7 +1,7 @@
 import fire
 from .template import startproject
-from .dockerise import createdockerfile, dockerfilechecker, buildimage
-from .apitests import get_routes
+from .dockerise import createdockerfile, dockerfilechecker, buildimage, runimage
+from .apitests import get_routes,tests
 import os
 
 def main():
@@ -46,6 +46,19 @@ class Deploy(object):
         # Building a Docker Image 
         buildimage(image_name)
 
+
+    def run_docker(self, image_name):
+        """Generates the template Dockerfile and Docker image for the project.
+
+        Arguments:
+            image_name::str- Name of the Docker image that is to be generated.
+        
+        Returns:
+            None
+        """
+        runimage(image_name)
+
+
     def api_test(self):
         """A automated API testing used to check whether the API route is working correctly or not
 
@@ -58,7 +71,9 @@ class Deploy(object):
         # Firstly we need to run the file and then start testing
         # Getting the list of routes from the app.py 
         routes=get_routes()
-        print(routes)
+        # print(routes)
+        HOST_ENDPOINT="http://127.0.0.1:8080"
+        tests(routes,HOST_ENDPOINT)
 
 
 

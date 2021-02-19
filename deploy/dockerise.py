@@ -1,5 +1,11 @@
 import os
 import pkg_resources
+import signal
+import sys
+
+def signal_handler(sig, frame):
+    print('You pressed Ctrl+C!')
+    sys.exit(0)
 
 
 def createdockerfile():
@@ -46,3 +52,17 @@ def buildimage(image_name:str):
     print('Docker Image ' + image_name + ' is getting created')
     os.system('docker build -t ' + image_name + ' .')
     print('Docker image build completed')
+
+
+def runimage(image_name:str):
+    """Runs the Docker Image Container
+
+    Arguments:
+        image_name::str- Name for the Docker image
+    
+    Returns:
+        None
+    """
+    print("Docker Image Running")
+    os.system("docker run -p 8080:8080 "+image_name)
+    

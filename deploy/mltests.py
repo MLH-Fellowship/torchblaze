@@ -188,6 +188,8 @@ def model_test(model, batch_x, batch_y, optim_fn,
                 check_nan(name, params)
             if test_infinite:
                 check_infinite(name, params)
+        
+        print(f"Epoch {epoch}: All tests passed successfully.")
             
             
 

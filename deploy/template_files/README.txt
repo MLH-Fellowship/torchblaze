@@ -20,5 +20,3 @@ Your basic deployable machine learning model template has been generated. This t
 4. Run `python app.py`
 
 These simple steps have set up your localhost to accept images sent through post requests and run a simple classifier that detects the digit present in the image.
-
-### Additional features of <library name>

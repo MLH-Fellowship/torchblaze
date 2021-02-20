@@ -11,7 +11,7 @@ app = Flask(__name__)
 api = Api(app)
 
 model = Net()
-model.load_state_dict(torch.load('model/mnist_cnn.pt'))
+model.load_state_dict(torch.load('mnist_cnn.pt'))
 model.eval()
 
 # convert request_input dict to input accepted by model.

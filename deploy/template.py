@@ -23,8 +23,12 @@ def startproject(project: str):
             gitignore.write(" ")
         
         f = os.path.join(root_dir, "README.md")
-        with open(f, "w+") as readme:
-            readme.write("# "+ project+"\n---")
+        with open(f, "w+") as writefile:
+            writefile.writelines(pkg_resources.resource_string('deploy', 'template_files/README.txt').decode('utf-8').split('\n'))
+
+        f = os.path.join(root_dir, "requirements.txt")
+        with open(f, "w+") as writefile:
+            writefile.writelines(pkg_resources.resource_string('deploy', 'template_files/requirements.txt').decode('utf-8').split('\n'))
         
         f = os.path.join(root_dir, "app.py")
         with open(f, "w+") as writefile:

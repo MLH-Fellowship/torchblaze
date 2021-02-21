@@ -2,6 +2,14 @@ import os
 import pkg_resources
 
 def startproject(project: str):
+    """Generates a template project structure for an ML API project.
+
+    Arguments:
+        project::str- Project name
+    
+    Returns:
+        None
+    """
     try: 
         curr_dir = os.getcwd()
         root_dir = os.path.join(curr_dir, project)
@@ -15,12 +23,24 @@ def startproject(project: str):
             gitignore.write(" ")
         
         f = os.path.join(root_dir, "README.md")
-        with open(f, "w+") as readme:
-            readme.write("# "+ project+"\n---")
+        with open(f, "w+") as writefile:
+            writefile.writelines(pkg_resources.resource_string('deploy', 'template_files/README.txt').decode('utf-8').split('\n'))
+
+        f = os.path.join(root_dir, "requirements.txt")
+        with open(f, "w+") as writefile:
+            writefile.writelines(pkg_resources.resource_string('deploy', 'template_files/requirements.txt').decode('utf-8').split('\n'))
         
         f = os.path.join(root_dir, "app.py")
         with open(f, "w+") as writefile:
-            writefile.write(pkg_resources.resource_string('deploy', 'template_files/app.txt').decode('utf-8'))
+            writefile.writelines(pkg_resources.resource_string('deploy', 'template_files/app.py').decode('utf-8').split('\n'))
+        
+        f = os.path.join(root_dir, "tests.json")
+        with open(f, "w+") as writefile:
+            writefile.writelines(pkg_resources.resource_string('deploy', 'template_files/tests.txt').decode('utf-8').split('\n'))
+
+        f = os.path.join(root_dir, "Procfile")
+        with open(f, "w+") as writefile:
+            writefile.writelines(pkg_resources.resource_string('deploy', 'template_files/procfile.txt').decode('utf-8').split('\n'))
         
         # creating the model directory and sub-dir/files
         model_dir = os.path.join(root_dir, 'model')
@@ -31,9 +51,9 @@ def startproject(project: str):
         for file in model_files:
             f = os.path.join(model_dir, file+'.py')
             with open(f, "w+") as writefile:
-                    writefile.write(pkg_resources.resource_string('deploy', f'template_files/{file}.txt').decode('utf-8'))
+                    writefile.writelines(pkg_resources.resource_string('deploy', f'template_files/{file}.py').decode('utf-8').split('\n'))
     except:
-        print("A directory with project name already exists. Kindly choose a different name.")
+        print(f"The directory '{project}' already exists. Kindly choose a different project name.")
     
 
 if __name__ == "__main__":

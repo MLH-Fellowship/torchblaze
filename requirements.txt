@@ -1,3 +1,5 @@
 fire==0.4.0
 six==1.15.0
 termcolor==1.1.0
+flask
+requests

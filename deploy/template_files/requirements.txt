@@ -1,0 +1,5 @@
+flask-restful
+opencv-python
+pip-chill
+torchaudio
+torchvision

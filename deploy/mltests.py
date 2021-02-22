@@ -26,6 +26,12 @@ class InfParamsException(Exception):
 class GradientsUninitializedException(Exception):
     pass
 
+class ParamsNotChangingException(Exception):
+    pass
+
+class DeviceNotCudaException(Exception):
+    pass
+
 
 def get_params(model):
     """Retrieves list of all the named parameters in a model.
@@ -37,6 +43,21 @@ def get_params(model):
         param_list::list- List of all the named parameters in the model.
     """
     return [(name, params) for name, params in model.named_parameters() if params.requires_grad]
+
+
+def check_cuda(params):
+    """Checks if the training device is of type CUDA or not.
+
+    Arguments:
+        params::torch.Tensor- The parameters associated with a model layer.
+    
+    Returns:
+        None: Throws an exception if the training device is not CUDA-enabled.
+    """ 
+    try:
+        assert params.device.type == "cuda"
+    except AssertionError:
+        raise DeviceNotCudaException("Training device is not of the type CUDA.")
 
 
 def check_nan(name, params):
@@ -133,11 +154,36 @@ def check_gradient_smaller(name, params, grad_limit=1e3):
         raise GradientAboveThresholdException(f"\nGradients (absolute) for certain parameters in layer '{name}' found to be greater than the threshold grad_limit value = {grad_limit}.")
 
 
+def check_params_changing(params_list_old, params_list_new):
+    """Tests if the parameters in the model/certain layer are changing after a training cycle.
+
+    Arguments:
+        name::str- Name of the parameter
+        params_list_old::list- List of trainable model parameters BEFORE training cycle.
+        params_list_new::list- List of trainable model parameters AFTER training cycle.
+
+    Returns:
+        None- Throws an exception in case the parameters are not changing 
+    """
+    try:
+        for old, new in zip(params_list_old, params_list_new):
+            _, params_old = old
+            _, params_new = new
+            assert params_old.equal(params_new)
+        raise ParamsNotChangingException(f"\nModel parameters found to be NOT changing post training.")
+
+    except AssertionError:
+        print("Test for parameter change after training passed successfully.") 
+        
+
+
+
 def model_test(model, batch_x, batch_y, optim_fn,
-               loss_fn=torch.nn.CrossEntropyLoss(), epochs=5, 
+               loss_fn=torch.nn.CrossEntropyLoss(), epochs=10, 
                test_gradient_smaller=True, test_greater=True,
                test_smaller=True, test_infinite=True, test_nan=True,
-               upper_limit=1e-1, lower_limit=1e-2, grad_limit=1e4):
+               test_cuda=False, test_params_changing=False, 
+               upper_limit=1e1, lower_limit=1e-2, grad_limit=1e4):
     """Executes a suite of tests on the ML model.
     Set <test_name> = False if you want to exclude a certain test from the test suite.
 
@@ -148,19 +194,23 @@ def model_test(model, batch_x, batch_y, optim_fn,
 
         batch_y::torch.Tensor- A single batch of data labels to perform model checks
 
-        optim::torch.optim- default=torch.optim.Adam, Optimizer algorithm to be used during model training 
+        optim_fn::torch.optim- default=torch.optim.Adam, Optimizer algorithm to be used during model training 
 
         loss_fn- default=torch.nn.CrossEntropyLoss, Loss function to be used for model evaluation during training
 
-        test_gradient_smaller::bools- default=True, Asserts if gradients exceed a certain threshold  
+        test_gradient_smaller::bool- default=True, Asserts if gradients exceed a certain threshold  
 
-        test_greater::bools- default=True, Asserts if all parameters > threshold limit
+        test_greater::bool- default=True, Asserts if all parameters > threshold limit
 
-        test_smaller::bools- default=True, Asserts if all parameters < threshold limit
+        test_smaller::bool- default=True, Asserts if all parameters < threshold limit
 
-        test_infinite::bools- default=True, Asserts that no parameters == infinite
+        test_infinite::bool- default=True, Asserts that no parameters == infinite
 
-        test_nan::bools- default=True, Asserts that no parameters == NaN
+        test_nan::bool- default=True, Asserts that no parameters == NaN
+
+        test_params_changing::bool- Default=False, Asserts that all the parameters change/update after the training is complete
+
+        test_cuda::bool- Default=False, Asserts that the model is training on a cuda-enabled GPU
 
         upper_limit::float- default=1e2, Absolute value of all parameters should be smaller than this threshold value
 
@@ -169,6 +219,12 @@ def model_test(model, batch_x, batch_y, optim_fn,
         grad_limit::float- default=1e4, Absolute value of all gradients should be smaller than this threshold value
     """
     model.train() # putting the model in training mode
+
+    model_params_old = get_params(model) # getting list of model parameters PRE training epoch
+    
+    if test_cuda: # needs to be checked only once
+        check_cuda(model_params_old[0][1])
+
     for epoch in range(epochs): 
         optim_fn.zero_grad()
         output = model(batch_x)
@@ -176,8 +232,9 @@ def model_test(model, batch_x, batch_y, optim_fn,
         loss.backward()
         optim_fn.step()
 
-        model_params = get_params(model) # getting list of model parameters
-        for name, params in model_params:
+        model_params = get_params(model) # getting list of model parameters POST training epoch
+
+        for name, params in model_params: 
             if test_greater:
                 check_greater(name, params, lower_limit=lower_limit)
             if test_smaller:
@@ -190,7 +247,10 @@ def model_test(model, batch_x, batch_y, optim_fn,
                 check_infinite(name, params)
         
         print(f"Epoch {epoch}: All tests passed successfully.")
-            
+    
+    if test_params_changing:
+        model_params_new = get_params(model)
+        check_params_changing(model_params_old, model_params_new)   
             
 
 if __name__ == "__main__":
@@ -215,11 +275,11 @@ if __name__ == "__main__":
 
     net = Net()
 
-    x = torch.randn(4,3,32,32)
-    y = torch.randint(low=0, high=10, size=(4,))
+    x = torch.rand(32,3,32,32)
+    y = torch.randint(low=0, high=10, size=(32,))
 
     criterion = torch.nn.CrossEntropyLoss()
-    optimizer = torch.optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
+    optimizer = torch.optim.SGD(net.parameters(), lr=0.1, momentum=0.9)
 
     model_test(model=net, batch_x=x, batch_y=y, optim_fn=optimizer, loss_fn=criterion)
 

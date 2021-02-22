@@ -26,6 +26,8 @@ class InfParamsException(Exception):
 class GradientsUninitializedException(Exception):
     pass
 
+class ParamsNotChangingException(Exception):
+    pass
 
 def get_params(model):
     """Retrieves list of all the named parameters in a model.
@@ -131,6 +133,24 @@ def check_gradient_smaller(name, params, grad_limit=1e3):
         assert not grads.abs().greater(grad_limit).any()
     except AssertionError:
         raise GradientAboveThresholdException(f"\nGradients (absolute) for certain parameters in layer '{name}' found to be greater than the threshold grad_limit value = {grad_limit}.")
+
+
+def check_params_changing(name, params_old, params_new):
+    """Tests if the parameters in the model/certain layer are changing after a training cycle.
+
+    Arguments:
+        name::str- Name of the parameter
+        params_old::torch.Tensor- Trainable named parameters associated with a layer BEFORE training cycle.
+        params_new::torch.Tensor- Trainable named parameters associated with a layer AFTER training cycle.
+
+    Returns:
+        None- Throws an exception in case the parameters are not changing 
+    """
+    try:
+        assert not params_old.eq(params_new).any()
+    except AssertionError:
+        raise ParamsNotChangingException(f"\nCertain parameters in layer '{name}' found to be NOT changing during training.")
+
 
 
 def model_test(model, batch_x, batch_y, optim_fn,

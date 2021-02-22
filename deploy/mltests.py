@@ -29,6 +29,10 @@ class GradientsUninitializedException(Exception):
 class ParamsNotChangingException(Exception):
     pass
 
+class DeviceNotCudaException(Exception):
+    pass
+
+
 def get_params(model):
     """Retrieves list of all the named parameters in a model.
 
@@ -39,6 +43,21 @@ def get_params(model):
         param_list::list- List of all the named parameters in the model.
     """
     return [(name, params) for name, params in model.named_parameters() if params.requires_grad]
+
+
+def check_cuda(params):
+    """Checks if the training device is of type CUDA or not.
+
+    Arguments:
+        params::torch.Tensor- The parameters associated with a model layer.
+    
+    Returns:
+        None: Throws an exception if the training device is not CUDA-enabled.
+    """ 
+    try:
+        assert params.device.type == "cuda"
+    except AssertionError:
+        raise DeviceNotCudaException("Training device is not of the type CUDA.")
 
 
 def check_nan(name, params):

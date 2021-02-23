@@ -8,12 +8,12 @@ import styles from './styles.module.css';
 
 const features = [
   {
-    title: 'Easy to Use',
+    title: 'Quick Setup',
     imageUrl: 'img/undraw_docusaurus_mountain.svg',
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Do you sometimes feel that deploying your ML models on the web can be tougher than the 
+        actual modeling process? Well not with TorchBlaze anymore! It's all just a few commands away!
       </>
     ),
   },
@@ -22,18 +22,18 @@ const features = [
     imageUrl: 'img/undraw_docusaurus_tree.svg',
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        When it comes to ML, the model accuracy should be your primary concern. Let TorchBlaze take care 
+        of the API wrapping, dockerization and Heroku deployment. 
       </>
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'Test Before You Deploy',
     imageUrl: 'img/undraw_docusaurus_react.svg',
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        TorchBlaze comes with build-in test suites that automate testing a variety of components in your project.
+        Be it an entire model testing package, or testing your API end-points before you deploy, we've got your back! 
       </>
     ),
   },

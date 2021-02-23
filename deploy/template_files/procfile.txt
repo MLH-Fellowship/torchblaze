@@ -1,1 +1,0 @@
-web: gunicorn do:app

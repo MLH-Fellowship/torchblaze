@@ -1,4 +1,4 @@
-# flask-ml-api
+# TorchBlaze🔥
 ---
 
 A CLI-based python package that provides a suite of functionalities to perform end-to-end ML using PyTorch. 

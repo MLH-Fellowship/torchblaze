@@ -1,0 +1,23 @@
+# Loading the base image from continuunio/anaconda version 3
+
+FROM continuumio/anaconda3
+
+# Copying the files from local directory to docker container
+
+COPY . /usr/app/
+
+# Specifying the current working directory path
+
+WORKDIR /usr/app/
+
+# Specifying the port 8080
+
+EXPOSE 8080
+
+# Running CMD in container to install packages requirements.txt 
+
+RUN pip install --upgrade pip && apt install libgl1-mesa-glx -y && pip install -r requirements.txt
+
+# Running the application in CMD 
+
+CMD ["python","app.py"]

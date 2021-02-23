@@ -1,8 +1,8 @@
 module.exports = {
   title: 'TorchBlaze',
   tagline: 'The only MLOps tool you\'ll need, from training to deployment.',
-  url: 'https://github.com/MLH-Fellowship.github.io/torchblaze',
-  baseUrl: '/',
+  url: 'https://github.com/MLH-Fellowship.github.io',
+  baseUrl: '/torchblaze/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',

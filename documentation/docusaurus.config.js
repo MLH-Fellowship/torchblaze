@@ -1,18 +1,18 @@
 module.exports = {
   title: 'TorchBlaze',
   tagline: 'The only MLOps tool you\'ll need, from training to deployment.',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://github.com/MLH-Fellowship.github.io/torchblaze',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'Major Leage Hacking', // Usually your GitHub org/user name.
-  projectName: 'TorchBlaze', // Usually your repo name.
+  organizationName: 'MLH-Fellowship', // Usually your GitHub org/user name.
+  projectName: 'torchblaze', // Usually your repo name.
   themeConfig: {
     navbar: {
       title: 'TorchBlaze',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'TorchBlaze Logo',
         src: 'img/logo.svg',
       },
       items: [
@@ -24,7 +24,7 @@ module.exports = {
         },
         {to: 'blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/MLH-Fellowship/flask-ml-api',
+          href: 'https://github.com/MLH-Fellowship/torchblaze',
           label: 'GitHub',
           position: 'right',
         },
@@ -55,7 +55,7 @@ module.exports = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/MLH-Fellowship/flask-ml-api',
+              href: 'https://github.com/MLH-Fellowship/torchblaze',
             },
           ],
         },
@@ -71,13 +71,13 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
+            'https://github.com/MLH-Fellowship/torchblaze/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/blog/',
+            'https://github.com/MLH-Fellowship/torchblaze/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

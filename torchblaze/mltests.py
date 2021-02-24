@@ -57,7 +57,7 @@ def check_cuda(params):
         None: Throws an exception if the training device is not CUDA-enabled.
     """ 
     try:
-        assert params.device.type == "cuda"  # assers if the tensor is on a cuda device
+        assert params.device.type == "cuda"  # asserts if the tensor is on a cuda device
     except AssertionError:
         raise DeviceNotCudaException("Training device is not of the type CUDA.")
 

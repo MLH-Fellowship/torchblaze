@@ -17,8 +17,8 @@ module.exports = {
       },
       items: [
         {
-          to: 'docs/',
-          activeBasePath: 'docs',
+          to: 'docs/installation',
+          activeBasePath: 'installation',
           label: 'Docs',
           position: 'left',
         },
@@ -37,12 +37,24 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Style Guide',
-              to: 'docs/',
+              label: 'Installation',
+              to: 'docs/installation/',
             },
             {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
+              label: 'Quick Setup',
+              to: 'docs/setup/',
+            },
+            {
+              label: 'Model Testing',
+              to: 'docs/mltests/',
+            },
+            {
+              label: 'API Testing',
+              to: 'docs/apitests/',
+            },
+            {
+              label: 'Quick Dockerizing',
+              to: 'docs/docker/',
             },
           ],
         },

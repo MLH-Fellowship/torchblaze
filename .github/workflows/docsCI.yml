@@ -46,6 +46,7 @@ jobs:
           Host github.com
           HostName github.com
           IdentityFile ~/.ssh/id_rsa
+          EOT
           mkdir -p ~/home/runner/.ssh
           ssh-keyscan github.com >> ~/home/runner/.ssh/known_hosts
           echo "${{ secrets.GH_PAGES_DEPLOY }}" > ~/home/runner/.ssh/id_rsa

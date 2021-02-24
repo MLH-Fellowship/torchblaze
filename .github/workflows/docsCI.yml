@@ -45,7 +45,6 @@ jobs:
           cat <<EOT >> ~/.ssh/config
           Host github.com
           HostName github.com
-          RSAAuthentication yes
           IdentityFile ~/.ssh/id_rsa
           EOT
       - name: Release to GitHub Pages
@@ -60,4 +59,4 @@ jobs:
           else
           npm i
           fi
-          GIT_USER=amansharma2910 USE_SSH=true CURRENT_BRANCH=staging DEPLOYMENT_BRANCH=gh-pages yarn deploy
+          GIT_USER=amansharma2910 USE_SSH=false CURRENT_BRANCH=staging DEPLOYMENT_BRANCH=gh-pages yarn deploy

@@ -102,7 +102,7 @@ def check_smaller(name, params, upper_limit=0):
         upper_limit::float- The threshold value every parameter should be smaller than in terms of its absolute value.
 
     Returns:
-        None- Throws an exception in case any parameter is a exceeds threshold value.
+        None- Throws an exception in case any parameter exceeds the upper_limit threshold value.
     """
     try:
         assert params.abs().less(upper_limit).any()

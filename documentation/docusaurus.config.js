@@ -50,7 +50,7 @@ module.exports = {
             },
             {
               label: 'API Testing',
-              to: 'docs/apitests/',
+              to: 'docs/apitest/',
             },
             {
               label: 'Quick Dockerizing',

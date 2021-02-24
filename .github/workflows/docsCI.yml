@@ -46,6 +46,14 @@ jobs:
           Host github.com
           HostName github.com
           IdentityFile ~/.ssh/id_rsa
+          mkdir -p ~/home/runner/.ssh
+          ssh-keyscan github.com >> ~/home/runner/.ssh/known_hosts
+          echo "${{ secrets.GH_PAGES_DEPLOY }}" > ~/home/runner/.ssh/id_rsa
+          chmod 600 ~/home/runner/.ssh/id_rsa
+          cat <<EOT >> ~/home/runner/.ssh/config
+          Host github.com
+          HostName github.com
+          IdentityFile ~/home/runner/.ssh/id_rsa
           EOT
       - name: Release to GitHub Pages
         env:

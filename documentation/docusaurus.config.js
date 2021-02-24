@@ -3,7 +3,7 @@ module.exports = {
   tagline: 'The only MLOps tool you\'ll need, from training to deployment.',
   url: 'https://github.com/MLH-Fellowship.github.io',
   baseUrl: '/torchblaze/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'MLH-Fellowship', // Usually your GitHub org/user name.
@@ -17,7 +17,7 @@ module.exports = {
       },
       items: [
         {
-          to: 'docs/',
+          to: 'docs/installation',
           activeBasePath: 'docs',
           label: 'Docs',
           position: 'left',
@@ -37,12 +37,24 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Style Guide',
-              to: 'docs/',
+              label: 'Installation',
+              to: 'docs/installation/',
             },
             {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
+              label: 'Quick Setup',
+              to: 'docs/setup/',
+            },
+            {
+              label: 'Model Testing',
+              to: 'docs/mltests/',
+            },
+            {
+              label: 'API Testing',
+              to: 'docs/apitest/',
+            },
+            {
+              label: 'Quick Dockerizing',
+              to: 'docs/docker/',
             },
           ],
         },

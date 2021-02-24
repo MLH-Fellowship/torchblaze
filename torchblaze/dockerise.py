@@ -20,7 +20,7 @@ def createdockerfile():
     curr_dir = os.getcwd()
     f = os.path.join(curr_dir, 'Dockerfile')
     with open(f, 'w+') as writefile:
-        writefile.write(pkg_resources.resource_string('deploy',
+        writefile.write(pkg_resources.resource_string('torchblaze',
                         'template_files/docker.txt').decode('utf-8'))
 
 

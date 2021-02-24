@@ -31,12 +31,11 @@ setup (
         [console_scripts]
         torchblaze=torchblaze.__main__:main
     ''',
- author="Saumya Gandhi, Aman Sharma, Sai Durga Kamesh Kota",
+ author="Sai Durga Kamesh Kota",
  long_description=README,
  long_description_content_type="text/markdown",
  license='MIT',
  url='https://github.com/MLH-Fellowship/torchblaze',
-  dependency_links=dependency_links,
   author_email='ksdkamesh99@gmail.com',
   classifiers=[
         "License :: OSI Approved :: MIT License",

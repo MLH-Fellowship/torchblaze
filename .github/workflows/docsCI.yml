@@ -45,21 +45,10 @@ jobs:
           cat <<EOT >> ~/.ssh/config
           Host github.com
           HostName github.com
+          RSAAuthentication yes
           IdentityFile ~/.ssh/id_rsa
           EOT
-          mkdir -p ~/home/runner/.ssh
-          ssh-keyscan github.com >> ~/home/runner/.ssh/known_hosts
-          echo "${{ secrets.GH_PAGES_DEPLOY }}" > ~/home/runner/.ssh/id_rsa
-          chmod 600 ~/home/runner/.ssh/id_rsa
-          cat <<EOT >> ~/home/runner/.ssh/config
-          Host github.com
-          HostName github.com
-          IdentityFile ~/home/runner/.ssh/id_rsa
-          EOT
       - name: Release to GitHub Pages
-        env:
-          USE_SSH: true
-          GIT_USER: amansharma2910
         run: |
           git config --global user.email "amansharma2910@gmail.com"
           git config --global user.name "amansharma2910"
@@ -71,4 +60,4 @@ jobs:
           else
           npm i
           fi
-          npx docusaurus deploy
+          GIT_USER=amansharma2910 USE_SSH=true CURRENT_BRANCH=staging DEPLOYMENT_BRANCH=gh-pages yarn deploy

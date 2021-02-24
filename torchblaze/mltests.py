@@ -140,7 +140,7 @@ def check_greater(name, params, lower_limit=0):
 
 
 
-# method to assert all parameter gradients (absolute)) < threshold
+# method to assert all parameter gradients (absolute) < threshold
 def check_gradient_smaller(name, params, grad_limit=1e3):
     """Tests if the absolute gradient value for any parameter exceed a certain threshold. Can be used to check for gradient explosion.
 

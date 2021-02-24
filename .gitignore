@@ -1,5 +1,7 @@
 e
 .env
+.build
+.dist
 .vscode
 *.pyc
 *.pyo

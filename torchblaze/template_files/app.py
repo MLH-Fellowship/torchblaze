@@ -16,6 +16,14 @@ model.eval()
 
 # convert request_input dict to input accepted by model.
 def parse_input(request_input):
+    """parse input to make it ready for model input.
+
+    Arguments:
+        request_input::file- input received from API call.
+
+    Returns:
+        model_ready_input::torch.Tensor- data ready to be fed into model.
+    """
     img = request_input.read()
     img = np.frombuffer(img, np.uint8)
     img = cv2.imdecode(img,cv2.IMREAD_COLOR)
@@ -27,9 +35,18 @@ def parse_input(request_input):
 
 # convert model prediction to dict to return as JSON
 def parse_prediction(prediction):
+    """parse prediction to prepare a request response.
+
+    Arguments:
+        prediction::torch.Tensor- output of model inference
+
+    Returns:
+        response::dict- dictionary to return as a JSON response.
+    """
     prediction = prediction.argmax(dim=1, keepdim=True)
     return {'class':int(prediction[0][0])}
 
+# class inheriting from Resource prepares it to become an API endpoint
 class MakePrediction(Resource):
     @staticmethod
     def post():
@@ -50,7 +67,7 @@ class MakePrediction(Resource):
         else:
             return jsonify({'trace': 'No model found'})
 
-api.add_resource(MakePrediction, '/predict')
+api.add_resource(MakePrediction, '/predict') # add endpoint to API
 
 
 class dummy_post(Resource):

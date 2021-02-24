@@ -7,6 +7,7 @@ import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 from model import Net
+import torchblaze.mltests as mls
 
 def train(args, model, device, train_loader, optimizer, epoch):
     model.train()
@@ -17,10 +18,16 @@ def train(args, model, device, train_loader, optimizer, epoch):
         loss = F.nll_loss(output, target)
         loss.backward()
         optimizer.step()
+        model_params = mls.get_params(model)
+
+        for name, params in model_params: 
+            mls.check_nan(name, params)
+            mls.check_infinite(name, params)
+        
         if batch_idx % args.log_interval == 0:
-            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
+            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}\t All tests passed successfully'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
-                100. * batch_idx / len(train_loader), loss.item()))
+                100. * batch_idx / len(train_loader), loss.item())) 
             if args.dry_run:
                 break
 

@@ -81,15 +81,9 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/MLH-Fellowship/torchblaze/',
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/MLH-Fellowship/torchblaze/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

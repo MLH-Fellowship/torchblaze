@@ -9,7 +9,7 @@ import styles from './styles.module.css';
 const features = [
   {
     title: 'Quick Setup',
-    imageUrl: 'img/undraw_docusaurus_mountain.svg',
+    imageUrl: 'img/computer.svg',
     description: (
       <>
         Do you sometimes feel that deploying your ML models on the web can be tougher than the 
@@ -19,7 +19,7 @@ const features = [
   },
   {
     title: 'Focus on What Matters',
-    imageUrl: 'img/undraw_docusaurus_tree.svg',
+    imageUrl: 'img/neural.svg',
     description: (
       <>
         When it comes to ML, the model accuracy should be your primary concern. Let TorchBlaze take care 
@@ -29,7 +29,7 @@ const features = [
   },
   {
     title: 'Test Before You Deploy',
-    imageUrl: 'img/undraw_docusaurus_react.svg',
+    imageUrl: 'img/checklist.svg',
     description: (
       <>
         TorchBlaze comes with build-in test suites that automate testing a variety of components in your project.

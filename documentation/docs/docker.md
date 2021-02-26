@@ -6,30 +6,30 @@ title: Dockerizing Your Projects
 
 Dockerizing an application is the process of converting an application to run within a Docker container. While dockerizing most applications is straight-forward, there are a few problems that need to be worked around each time.
 
-To overcome all difficulties Torchblaze came up with a inbuilt module to perform dockerisation for ML Models.
+To overcome all difficulties TorchBlaze comes with an inbuilt module to perform dockerization for ML Models.
 
-Before we proceed you need to install docker by taking the reference from the setup instructions.
+Before we proceed you need to install Docker by taking the reference from the setup instructions.
 
-## Steps to Dockerise your Flask ML RestFUL API
+## Steps to DockeriSe your Flask ML RESTful API
 
-1. Once you Setup the Basic File Structure and Perform all the API Checks then you need to be cautions about the port as 8080 and host address as "0.0.0.0" in app.py.
+1. Once you setup the basic file structure and perform all the API checks, then you need to be cautions about the port as 8080 and host address as "0.0.0.0" in app.py.
 
-2. Then you need to go to the main project path in command prompt or terminal .
+2. Then go to the main project path in command prompt or terminal .
 
 
 ```py
 cd < Project Folder Name >
 ```
 
-3. For Example , If you created a project using template named "Sample" then command would be 
+3. For example , if you created a project using template named "Sample" then command would be 
 
 ```py
 cd Sample
 ```
 
-4. Now you need to create requirements.txt and need to add all the required python libraries needed for your project.
+4. Now, create a requirements.txt file and add all the required python libraries needed for your project to the requirements.txt file.
 
-5. Once that is done then we need to run the following command to generate the Docker Image for your appliciation.
+5. Once that is done, run the following command to generate the Docker Image for your appliciation.
 
 
 ```py
@@ -38,7 +38,7 @@ torchblaze generate_docker IMAGE_NAME
 
 :::caution
 
-You can include your own Dockerfile but make sure you need to expose 8080 as the port number which is default in our case. 
+You can include your own Dockerfile but make sure you need to expose 8080 as the port number which is the default in the template Dockerfile that we provide. 
 
 :::
 
@@ -51,7 +51,7 @@ Building a Docker Image usually takes some time. This depends on the application
 
 :::
 
-7. Now the docker image is successfully created.You can view all the docker images using following command in terminal.
+7. Now the Docker image is successfully created. You can view all the docker images using following command in terminal.
 
 
 ```py
@@ -77,14 +77,14 @@ torchblaze run_docker IMAGE_NAME
 
 3. You can now navigate to http://127.0.0.1:8080/{route} to check your application.
 
-## Stopping the Docker COntainer.
+## Stopping the Docker Container.
 
-1. Major Problem people face is once they apply CTRL-C to the process to stop the applciation it is stopped in the  CLI but the port is allocated so you can't run it again.
+1. Major Problem people face is once they apply CTRL-C to the process to stop the applciation it is stopped in the CLI but the port is allocated so you can't run it again.
 
-2. So we need to stop the containers which we created.For this open Docker Desktop which is already installed and click on the containers section at left and select the running containers and stop them.
+2. So we need to stop the containers which we created. For this open Docker Desktop which is already installed and click on the containers section on the left navbar. Select the running containers and stop them.
 
 3. It looks similar to this below.
 
 ![docker apps](../static/img/dockerapps.PNG)
 
-In this way torchblaze makes your life easier while dealing with the containerisation and docker for your ML Flask API.
+In this way TorchBlaze makes your life easier while dealing with the containerization and Docker for your ML Flask API.

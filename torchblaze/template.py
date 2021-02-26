@@ -45,7 +45,7 @@ def startproject(project: str):
         # same creation logic as the .gitignore file
         f = os.path.join(root_dir, "tests.json")
         with open(f, "w+") as writefile:
-            writefile.writelines(pkg_resources.resource_string('torchblaze', 'template_files/tests.txt').decode('utf-8').split('\n'))
+            writefile.write(pkg_resources.resource_string('torchblaze', 'template_files/tests.txt').decode('utf-8'))
 
             
         # same creation logic as the .gitignore file

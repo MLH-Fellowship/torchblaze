@@ -10,7 +10,7 @@ To overcome all difficulties TorchBlaze comes with an inbuilt module to perform 
 
 Before we proceed you need to install Docker by taking the reference from the setup instructions.
 
-## Steps to DockeriSe your Flask ML RESTful API
+## Steps to Dockerize your Flask ML RESTful API
 
 1. Once you setup the basic file structure and perform all the API checks, then you need to be cautions about the port as 8080 and host address as "0.0.0.0" in app.py.
 

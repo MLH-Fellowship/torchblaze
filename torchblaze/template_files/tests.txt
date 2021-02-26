@@ -1,0 +1,30 @@
+// Instructions for writing sample tests:-
+
+// This file is used to specify the Sample API Tests for your POST Requests in API.
+// The Structure of the JSON should like below.
+// {
+//     "ClassName":[
+//         {
+//             "parameter1":"value1",
+//             "parameter2":"value2"
+//         }
+//     ]
+// }
+
+// Here "ClassName" refers to the class name of particular API Request that is mentioned in app.py
+// "parameter1" and "parameter2" are referred as example parameters that are required by your API.
+// "value1" and "value2" are the values of the parameters that you want to pass to the API
+
+// You can find more about API Tests in the URL given below
+
+// https://mlh-fellowship.github.io/torchblaze/docs/apitest#writing-sample-tests 
+
+
+{
+	"dummy_post":[
+		{
+		"h1":12,
+		"h2":111
+	}
+	]
+}

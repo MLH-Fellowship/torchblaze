@@ -7,29 +7,57 @@ import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 from model import Net
+import torchblaze.mltests as mls
 
 def train(args, model, device, train_loader, optimizer, epoch):
-    model.train()
+    """performs model training over one epoch of the training data.
+
+    Arguments:
+        args::dict- commandline arguments
+        model::nn.Module- model to be trained
+        device::torch.device- CUDA or CPU
+        train_loader::torch.utils.data.DataLoader- Dataloader object to iterate over batches
+        optimizer::torch.optim- optimizer used for updating weights
+        epoch::int- current epoch number for printing
+    
+    Returns:
+        None
+    """
+    model.train() # set to training mode. activate dropout, batchnorm, etc.
     for batch_idx, (data, target) in enumerate(train_loader):
         data, target = data.to(device), target.to(device)
         optimizer.zero_grad()
         output = model(data)
         loss = F.nll_loss(output, target)
-        loss.backward()
-        optimizer.step()
+        loss.backward() # perform backpropagation and set gradients
+        optimizer.step() # perform weight update
+        model_params = mls.get_params(model) # get parameters for model testing
+
+        for name, params in model_params: 
+            mls.check_nan(name, params) # check whether any weight is being set to nan
+            mls.check_infinite(name, params) # check whether any weight is being set to inf
+        
         if batch_idx % args.log_interval == 0:
-            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
+            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}\t All tests passed successfully'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
-                100. * batch_idx / len(train_loader), loss.item()))
-            if args.dry_run:
-                break
+                100. * batch_idx / len(train_loader), loss.item())) 
 
 
 def test(model, device, test_loader):
-    model.eval()
+    """Run inference on test set.
+
+    Arguments:
+        model::nn.Module- model to be trained
+        device::torch.device- CUDA or CPU
+        test_loader::torch.utils.data.DataLoader- Dataloader object to iterate over batches
+    
+    Returns:
+        None
+    """
+    model.eval() # set to eval mode. remove dropout, batchnorm, etc.
     test_loss = 0
     correct = 0
-    with torch.no_grad():
+    with torch.no_grad(): # stop calculating gradients
         for data, target in test_loader:
             data, target = data.to(device), target.to(device)
             output = model(data)
@@ -58,8 +86,6 @@ def main():
                         help='Learning rate step gamma (default: 0.7)')
     parser.add_argument('--no-cuda', action='store_true', default=False,
                         help='disables CUDA training')
-    parser.add_argument('--dry-run', action='store_true', default=False,
-                        help='quickly check a single pass')
     parser.add_argument('--seed', type=int, default=1, metavar='S',
                         help='random seed (default: 1)')
     parser.add_argument('--log-interval', type=int, default=10, metavar='N',
@@ -69,10 +95,11 @@ def main():
     args = parser.parse_args()
     use_cuda = not args.no_cuda and torch.cuda.is_available()
 
-    torch.manual_seed(args.seed)
+    torch.manual_seed(args.seed) # set seed value to ensure reproducibility
 
     device = torch.device("cuda" if use_cuda else "cpu")
 
+    # prepare dataset for model
     train_kwargs = {'batch_size': args.batch_size}
     test_kwargs = {'batch_size': args.test_batch_size}
     if use_cuda:
@@ -93,10 +120,13 @@ def main():
     train_loader = torch.utils.data.DataLoader(dataset1,**train_kwargs)
     test_loader = torch.utils.data.DataLoader(dataset2, **test_kwargs)
 
+    # create model, optimizer and scheduler
     model = Net().to(device)
     optimizer = optim.Adadelta(model.parameters(), lr=args.lr)
 
     scheduler = StepLR(optimizer, step_size=1, gamma=args.gamma)
+
+    # begin multiple-epoch training
     for epoch in range(1, args.epochs + 1):
         train(args, model, device, train_loader, optimizer, epoch)
         test(model, device, test_loader)

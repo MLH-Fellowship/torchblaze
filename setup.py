@@ -20,8 +20,8 @@ install_requires = [x.strip() for x in all_reqs if ('git+' not in x) and (
 dependency_links = [x.strip().replace('git+', '') for x in all_reqs \
                     if 'git+' not in x]
 setup (
- name = 'deploy',
- description = 'A simple commandline app to generate API wrappers for ML models and dockerize ML models',
+ name = 'torchblaze',
+ description = 'A CLI-based python package that provides a suite of functionalities to perform end-to-end ML using PyTorch.',
  version = '1.0.0',
  packages = find_packages(), # list of all packages
  install_requires = install_requires,
@@ -29,15 +29,14 @@ setup (
  include_package_data = True,
  entry_points='''
         [console_scripts]
-        deploy=deploy.__main__:main
+        torchblaze=torchblaze.__main__:main
     ''',
- author="Saumya Gandhi, Aman Sharma, Sai Durga Kamesh Kota",
+ author="Sai Durga Kamesh Kota",
  long_description=README,
  long_description_content_type="text/markdown",
  license='MIT',
- url='https://github.com/MLH-Fellowship/flask-ml-api',
-  dependency_links=dependency_links,
-  author_email='abc@gmail.com',
+ url='https://github.com/MLH-Fellowship/torchblaze',
+  author_email='ksdkamesh99@gmail.com',
   classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 2.7",

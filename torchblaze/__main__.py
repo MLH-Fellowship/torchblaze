@@ -5,9 +5,9 @@ from .apitests import get_routes,tests
 import os
 
 def main():
-  fire.Fire(Deploy)
+  fire.Fire(TorchBlaze)
 
-class Deploy(object):
+class TorchBlaze(object):
     """The CLI class. The class methods will act as CLI commands.
     """
 

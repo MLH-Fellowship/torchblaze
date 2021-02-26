@@ -1,4 +1,6 @@
-# flask-ml-api
+![TorchBlaze](./documentation/static/img/torchblaze.svg)
+
+# TorchBlaze
 ---
 
 A CLI-based python package that provides a suite of functionalities to perform end-to-end ML using PyTorch. 
@@ -20,27 +22,27 @@ A CLI-based python package that provides a suite of functionalities to perform e
 * Setting-up the Template Project:
 
 ```console
-foo@bar:~$ deploy generate_template --project_name example
+foo@bar:~$ torchblaze generate_template --project_name example
 ```
 
 * Building Docker Image (Requires Docker Installed):
 > First cd to the root project directory containing app.py file.
 
 ```console
-foo@bar:~$ deploy generate_docker --image_name example_image
+foo@bar:~$ torchblaze generate_docker --image_name example_image
 ```
 
 * Run Docker Image (Requires Docker Installed):
 
 ```console
-foo@bar:~$ deploy run_docker --image_name example
+foo@bar:~$ torchblaze run_docker --image_name example
 ```
 
 * Performing API Tests:
 
 > First cd to the root project directory containing app.py file.
 ```console
-foo@bar:~$ deploy api_tests
+foo@bar:~$ torchblaze api_tests
 ```
 
 * Performing Model Testing:
@@ -48,7 +50,7 @@ foo@bar:~$ deploy api_tests
 
 > Import the mltests package
 ```py
-import deploy.mltests as mls
+import torchblaze.mltests as mls
 ```
 > Then use the variety of testing methods available in the mltests package. Run the following command to get the list of available methods.
 ```py

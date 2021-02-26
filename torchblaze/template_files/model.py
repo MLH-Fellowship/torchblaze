@@ -3,6 +3,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class Net(nn.Module):
+
+    # initialize the various components required for the complete model
     def __init__(self):
         super(Net, self).__init__()
         self.conv1 = nn.Conv2d(1, 32, 3, 1)
@@ -12,6 +14,7 @@ class Net(nn.Module):
         self.fc1 = nn.Linear(9216, 128)
         self.fc2 = nn.Linear(128, 10)
 
+    # forward function is called when model(input) is called from the training loop
     def forward(self, x):
         x = self.conv1(x)
         x = F.relu(x)

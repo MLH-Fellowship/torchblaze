@@ -5,7 +5,7 @@ module.exports = {
   baseUrl: '/torchblaze/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/blaze.svg',
   organizationName: 'MLH-Fellowship', // Usually your GitHub org/user name.
   projectName: 'torchblaze', // Usually your repo name.
   themeConfig: {
@@ -13,7 +13,7 @@ module.exports = {
       title: 'TorchBlaze',
       logo: {
         alt: 'TorchBlaze Logo',
-        src: 'img/logo.svg',
+        src: 'img/torchblaze.svg',
       },
       items: [
         {

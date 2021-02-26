@@ -1,3 +1,5 @@
+![TorchBlaze](./documentation/static/img/torchblaze.svg)
+
 # TorchBlaze
 ---
 

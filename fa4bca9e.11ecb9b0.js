@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[21],{94:function(o){o.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Coming Soon!","permalink":"/torchblaze/blog/Wait"}]}')}}]);

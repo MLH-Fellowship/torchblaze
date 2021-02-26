@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[20],{93:function(e){e.exports=JSON.parse('{"allTagsPath":"/torchblaze/blog/tags","slug":"deep-learning","name":"deep learning","count":1,"permalink":"/torchblaze/blog/tags/deep-learning"}')}}]);

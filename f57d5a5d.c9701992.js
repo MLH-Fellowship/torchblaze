@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[19],{92:function(a){a.exports=JSON.parse('{"allTagsPath":"/torchblaze/blog/tags","slug":"flask-restful","name":"flask-restful","count":1,"permalink":"/torchblaze/blog/tags/flask-restful"}')}}]);

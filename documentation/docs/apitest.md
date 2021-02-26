@@ -16,7 +16,7 @@ python app.py
 
 :::caution
 
-If you are running the dockerised container then you need to by default go to http://127.0.0.1:8080/ and check the things. For this reason in the place of host it is written '0.0.0.0' and port no as 8080. If you are not using docker then change host to '127.0.0.1' and port no as you which.
+If you are running the dockerised container then you need to by default go to http://127.0.0.1:8080/ and check the things. For this reason in the place of host it is written '0.0.0.0' and port number as 8080. If you are not using docker then change host to '127.0.0.1' and port number as you wish.
 
 :::
 
@@ -64,7 +64,7 @@ For now let's consider our application base url is http://127.0.0.1:8080/
 
 ```
 
-4. In the above sample p1,p2 are the required parameters and v1,v2 are values associated with it.
+4. In the above sample p1,p2 are the required parameters and v1, v2 are values associated with it.
 
 ### Testing the API's
 

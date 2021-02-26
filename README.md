@@ -1,6 +1,7 @@
 ![TorchBlaze](./documentation/static/img/torchblaze.svg)
 
-# TorchBlaze
+# TorchBlaze 
+[Link to Documentation](https://mlh-fellowship.github.io/torchblaze/)
 ---
 
 A CLI-based python package that provides a suite of functionalities to perform end-to-end ML using PyTorch. 

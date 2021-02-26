@@ -4,14 +4,14 @@
         <title>TorchBlaze Blog</title>
         <link>https://github.com/MLH-Fellowship.github.io/blog</link>
         <description>TorchBlaze Blog</description>
-        <lastBuildDate>Fri, 26 Feb 2021 15:28:37 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 26 Feb 2021 16:05:14 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <item>
             <title><![CDATA[Coming Soon!]]></title>
             <link>https://github.com/MLH-Fellowship.github.io/torchblaze/blog/Wait</link>
             <guid>Wait</guid>
-            <pubDate>Fri, 26 Feb 2021 15:28:37 GMT</pubDate>
+            <pubDate>Fri, 26 Feb 2021 16:05:14 GMT</pubDate>
             <description><![CDATA[Stay tuned! Some examples to be added here soon!]]></description>
         </item>
     </channel>

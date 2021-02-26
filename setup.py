@@ -22,7 +22,7 @@ dependency_links = [x.strip().replace('git+', '') for x in all_reqs \
 setup (
  name = 'torchblaze',
  description = 'A CLI-based python package that provides a suite of functionalities to perform end-to-end ML using PyTorch.',
- version = '1.0.1',
+ version = '1.0.2',
  packages = find_packages(), # list of all packages
  install_requires = install_requires,
  python_requires='>=3.7.0',

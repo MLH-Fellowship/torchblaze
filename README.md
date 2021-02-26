@@ -1,4 +1,4 @@
-![TorchBlaze](./documentation/static/img/torchblaze.svg)
+![TorchBlaze](https://raw.githubusercontent.com/MLH-Fellowship/torchblaze/v1.0.2/documentation/static/img/torchblaze.svg?token=AK7ZFSTALFJP2BHI2SUTJPDAIJPX6)
 
 # TorchBlaze 
 [Link to Documentation](https://mlh-fellowship.github.io/torchblaze/)

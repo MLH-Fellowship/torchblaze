@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://github.com/MLH-Fellowship.github.io/blog</id>
     <title>TorchBlaze Blog</title>
-    <updated>2021-02-26T16:46:50.666Z</updated>
+    <updated>2021-02-26T19:33:25.697Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://github.com/MLH-Fellowship.github.io/blog"/>
     <subtitle>TorchBlaze Blog</subtitle>
@@ -11,7 +11,7 @@
         <title type="html"><![CDATA[Coming Soon!]]></title>
         <id>Wait</id>
         <link href="https://github.com/MLH-Fellowship.github.io/torchblaze/blog/Wait"/>
-        <updated>2021-02-26T16:46:50.666Z</updated>
+        <updated>2021-02-26T19:33:25.697Z</updated>
         <summary type="html"><![CDATA[Stay tuned! Some examples to be added here soon!]]></summary>
     </entry>
 </feed>

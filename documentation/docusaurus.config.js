@@ -3,7 +3,7 @@ module.exports = {
   tagline: 'The only MLOps tool you\'ll need, from training to deployment.',
   url: 'https://github.com/MLH-Fellowship.github.io',
   baseUrl: '/torchblaze/',
-  onBrokenLinks: 'warn',
+  onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/blaze.svg',
   organizationName: 'MLH-Fellowship', // Usually your GitHub org/user name.

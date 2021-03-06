@@ -27,19 +27,19 @@ def startproject(project: str):
         # same creation logic as the .gitignore file
         f = os.path.join(root_dir, "README.md")
         with open(f, "w+") as writefile:
-            writefile.writelines(pkg_resources.resource_string('torchblaze', 'template_files/README.txt').decode('utf-8').split('\n'))
+            writefile.writelines(pkg_resources.resource_string('torchblaze', 'template_files/README.txt').decode('utf-8'))
 
             
         # same creation logic as the .gitignore file
         f = os.path.join(root_dir, "requirements.txt")
         with open(f, "w+") as writefile:
-            writefile.writelines(pkg_resources.resource_string('torchblaze', 'template_files/requirements.txt').decode('utf-8').split('\n'))
+            writefile.writelines(pkg_resources.resource_string('torchblaze', 'template_files/requirements.txt').decode('utf-8'))
         
         
         # same creation logic as the .gitignore file
         f = os.path.join(root_dir, "app.py")
         with open(f, "w+") as writefile:
-            writefile.writelines(pkg_resources.resource_string('torchblaze', 'template_files/app.py').decode('utf-8').split('\n'))
+            writefile.writelines(pkg_resources.resource_string('torchblaze', 'template_files/app.py').decode('utf-8'))
         
         
         # same creation logic as the .gitignore file
@@ -51,7 +51,7 @@ def startproject(project: str):
         # same creation logic as the .gitignore file
         f = os.path.join(root_dir, "Procfile")
         with open(f, "w+") as writefile:
-            writefile.writelines(pkg_resources.resource_string('torchblaze', 'template_files/procfile.txt').decode('utf-8').split('\n'))
+            writefile.writelines(pkg_resources.resource_string('torchblaze', 'template_files/procfile.txt').decode('utf-8'))
         
         # creating the model directory
         model_dir = os.path.join(root_dir, 'model')

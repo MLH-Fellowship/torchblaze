@@ -67,7 +67,7 @@ def startproject(project: str):
         for file in model_files:
             f = os.path.join(model_dir, file+'.py')
             with open(f, "w+") as writefile:
-                    writefile.writelines(pkg_resources.resource_string('torchblaze', f'template_files/{file}.py').decode('utf-8').split('\n'))
+                    writefile.writelines(pkg_resources.resource_string('torchblaze', f'template_files/{file}.py').decode('utf-8'))
     except:
         print(f"The directory '{project}' already exists. Kindly choose a different project name.")
     

@@ -119,7 +119,7 @@ def generate_template():
     print(project_name)
     startproject(project_name)
 
-def generate_docker(image_name):
+def generate_docker():
     """Generates the template Dockerfile and Docker image for the project.
 
     Arguments:
@@ -128,6 +128,25 @@ def generate_docker(image_name):
     Returns:
         None
     """
+    while True:
+        questions = [
+            {
+                'type': 'input',
+                'name': 'image_name',
+                'message':'Docker Image Name',
+            },
+            {
+                'type': 'confirm',
+                'name': 'Confirm',
+                'message': 'Confirm'
+            }
+        ]    
+
+        answers = prompt(questions, style=style)
+        if len(answers['image_name']) == 0: log('Error: Image Name cannot be empty', "red")
+        else: 
+            image_name = answers['image_name']
+            break
 
     # Checking for Docker file exits or not 
     if not dockerfilechecker():

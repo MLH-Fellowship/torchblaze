@@ -158,7 +158,7 @@ def generate_docker():
     # Building a Docker Image 
     buildimage(image_name)
 
-def run_docker(image_name):
+def run_docker():
     """Generates the template Dockerfile and Docker image for the project.
 
     Arguments:
@@ -167,6 +167,26 @@ def run_docker(image_name):
     Returns:
         None
     """
+    while True:
+        questions = [
+            {
+                'type': 'input',
+                'name': 'image_name',
+                'message':'Docker Image Name',
+            },
+            {
+                'type': 'confirm',
+                'name': 'Confirm',
+                'message': 'Confirm'
+            }
+        ]    
+
+        answers = prompt(questions, style=style)
+        if len(answers['image_name']) == 0: log('Error: Image Name cannot be empty', "red")
+        else: 
+            image_name = answers['image_name']
+            break
+
     runimage(image_name)
 
 def api_test():

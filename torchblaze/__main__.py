@@ -96,6 +96,9 @@ def generate_template():
     Returns:
         None
     """
+
+    print(generate_template.__doc__) # For user's reference
+
     while True:
         questions = [
             {
@@ -128,6 +131,9 @@ def generate_docker():
     Returns:
         None
     """
+
+    print(generate_docker.__doc__) # For user's reference
+
     while True:
         questions = [
             {
@@ -167,6 +173,9 @@ def run_docker():
     Returns:
         None
     """
+
+    print(run_docker.__doc__) # For user's reference
+
     while True:
         questions = [
             {
@@ -198,6 +207,9 @@ def api_test():
     Returns:
         None
     """
+
+    print(api_test.__doc__) # For user's reference
+
     # Firstly we need to run the file and then start testing
     # Getting the list of routes from the app.py 
     routes=get_routes()

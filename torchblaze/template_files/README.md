@@ -1,4 +1,5 @@
 # End-to-End ML
+---
 
 Your basic deployable machine learning model template has been generated. This template comes with 5 files that you may edit/remove for your project.
 
@@ -13,6 +14,7 @@ Your basic deployable machine learning model template has been generated. This t
 5. `Procfile` - This file creates the required procfile for quick deployment to Heroku.
 
 ### Running base example
+---
 
 1. Create a virtual environment
 2. Run `pip install requirements.txt`
